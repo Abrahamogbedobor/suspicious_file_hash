@@ -13,7 +13,7 @@ I received an alert based on a supecious file that was downloaded by an employee
 
 <h2>High-Level Steps</h2>
 
-- Retrieving Hash Value of the File (287d612e29b71c90aa54947313810a25)
+- Retrieving Hash Value of the File (54e6ea47eb04634d3e87fd7787e2136ccfbcc80ade34f246a12cf93bab527f6b)
 - Reviewing Alert Details such as Timeline
 - Entering File Hash into VirusTotal for Evaluation
 - Analyzing VirusTotal Report (Tabs: Detection, Details, Relations, Behaviour)
@@ -23,18 +23,23 @@ I received an alert based on a supecious file that was downloaded by an employee
 <h2>Task Overview</h2>
 
 <p>
-<img src="" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-
+<img src="https://i.imgur.com/olCw4s4.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/GqYmV5W.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/2M3NvzM.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 <p>
 The file hash has been reported as malicious by over 50 vendors. Upon further investigation, this file hash is known as the malware Flagpro, which has been commonly used by the advanced threat actor BlackTech.
-  <h2>Filter and Analyze Captured Packets</h2>
-For me to  generate some HTTP [port 80] traffic that i needed to capture later, i then used the "curl command" with the website i need to generate traffic from as shown; [curl opensource.google.com]. Moving forward, the [ls -1 capture.pcap] command was used to verify that the packet was captured successfully. Furthermore, i will explain the options used in capturing and saving the packet data above; the [-1 eth0;] helped to capture data from eth0 interface. [-nn] option warns Linux terminal not to convert IP to domain name for security reasons, so as not to alert malicious actors that they are being investigated. [-c9] captured 9 packets of data, [port 80] that was specified helped to only capture port 80 traffic which is the default port of HTTP. [-w capture.pcap] saved the capture packet data to the named file ‘capture.pcap’. Finally, the [&] at the end was the reason the command was run in the background, though some output text appears on the terminal.
-  <h2>Saved the Captured Data for Detail Analysis</h2>
-Finally, the saved packet data file needed to be retrieved, and filtered for further investigation, by using this command; sudo tcpdump [-nn -r capture.pcap -v] this filtered command will run the tcpdump command using the above options as explained; [-nn] disabled port and protocol name lookup, [-r] read the capture from the saved file, [-v] displayed a detail packet data.
-  <h2>Tcpdump Packets Outputs Interpretation</h2>
-  <img src="https://i.imgur.com/hThJoCT.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-In the first line of the output after running the above commands, tcpdump reported that it was listening on the eth0 interface, and it also provided information about the link-type and capture size in bytes. On the second line of the output, the first field was the packet  timestamp followed by the protocol type IP. Because -v was used in the command which is the verbose option it further gives more details about the IP packet fields that were captured. In addition, the output data also show the systems that are communicating with each other in the network, using > to indicate the direction of traffic flow in their communication i.e from source IP which tcpdump normally does convert to domain names to destination IP. The remaining data is for the TCP packet where we have the flags field, which identifies TCP flags. From the output, the P indicates the PUSH FLAGS, why the dot indicates it is an ACK FLAG. Meaning, the packet is pushing out data. Lastly, there is the TCP checksum value, used in detecting errors in the data and next to it is the sequence and acknowledgement numbers, window size, and length of the inner TCP packet in bytes.
+  
+Domain names: org.misecure.com is reported as a malicious contacted domain under the Relations tab in the VirusTotal report.
+  
+IP address: 207.148.109.242 is listed as one of many IP addresses under the Relations tab in the VirusTotal report. This IP address is also associated with the org.misecure.com domain as listed in the DNS Resolutions section under the Behavior tab from the Zenbox sandbox report.
 
-</p>
+Hash value: 54e6ea47eb04634d3e87fd7787e2136ccfbcc80ade34f246a12cf93bab527f6b is a MD5 hash listed under the Details tab in the VirusTotal report.
+
+Network/host artifacts: Network-related artifacts that have been observed in this malware are HTTP requests made to the org.misecure.com domain. This is listed in the Network Communications section under the Behavior tab from the Venus Eye Sandbox and Rising MOVES sandbox reports. 
+
+Tools: Input capture is listed in the Collection section under the Behavior tab from the Zenbox sandbox report. Malicious actors use input capture to steal user input such as passwords, credit card numbers, and other sensitive information.
+
+TTPs: Command and control is listed as a tactic under the Behavior tab from the Zenbox sandbox report. Malicious actors use command and control to establish communication channels between an infected system and their own system.
+  
 <br />
