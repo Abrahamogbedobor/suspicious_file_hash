@@ -13,25 +13,21 @@ I received an alert based on a supecious file that was downloaded by an employee
 
 <h2>High-Level Steps</h2>
 
-- Retrieving Hash Value of a File
+- Retrieving Hash Value of the File (287d612e29b71c90aa54947313810a25)
 - Reviewing Alert Details such as Timeline
 - Entering File Hash into VirusTotal for Evaluation
 - Analyzing VirusTotal Report (Tabs: Detection, Details, Relations, Behaviour)
 - Determine if the File is Malicious by Observing; (High Vendor's Ratio, Negative Community Score, and Detection-tab)
-- Uncovering Additional IOCs that are associated with the File Based on VirusTotal Report
+- Uncovering Additional IoCs that are associated with the File Based on VirusTotal Report
 
 <h2>Task Overview</h2>
 
 <p>
-<img src="https://i.imgur.com/YFgUA1T.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<img src="https://i.imgur.com/mY9vRkm.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<img src="https://i.imgur.com/dktmosu.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>  
-<img src="https://i.imgur.com/UStCEIp.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+
 </p>
 <p>
-  <h2>Identifying/Inspect/Capture Network Interfaces</h2>
-First, I identified the network interfaces that could be used or that are running for packet data capturing in my organization systems. In doing that, I used the [sudo command + tcpdump -D], to gain privilege to access the available interfaces i.e [sudo tcpdump -D]. This then outputs all the available interfaces on my directory. Note, the [sudo ifconfig] command could also be use to display available interfaces. Furthermore, i then used tcpdump to filter, and inspect network traffic in my selected network interface which was eth0 (Ethernet network interface). In doing that, I used the [sudo tcpdump -i eth0 -v -c5] commands with some options. Notably, [-i eth0] option was used to capture data only from the ethernet interface, and [-v] gives more information about the captured data i.e verbose, and [-c5] captured 5 packets of data.
- After my inspection, I was able to captured some network traffics such as (HTTP web TCP port 80) on my selected interface eth0, then i saved the captured data as a P-cap file extension [.pcap], using this command; [sudo tcpdump -1 eth0 -non -c9 port 80 -w capture.pcap &]. This command only run at the background using the above options that was specified, not on the terminal as expected.
+The file hash has been reported as malicious by over 50 vendors. Upon further investigation, this file hash is known as the malware Flagpro, which has been commonly used by the advanced threat actor BlackTech.
   <h2>Filter and Analyze Captured Packets</h2>
 For me to  generate some HTTP [port 80] traffic that i needed to capture later, i then used the "curl command" with the website i need to generate traffic from as shown; [curl opensource.google.com]. Moving forward, the [ls -1 capture.pcap] command was used to verify that the packet was captured successfully. Furthermore, i will explain the options used in capturing and saving the packet data above; the [-1 eth0;] helped to capture data from eth0 interface. [-nn] option warns Linux terminal not to convert IP to domain name for security reasons, so as not to alert malicious actors that they are being investigated. [-c9] captured 9 packets of data, [port 80] that was specified helped to only capture port 80 traffic which is the default port of HTTP. [-w capture.pcap] saved the capture packet data to the named file ‘capture.pcap’. Finally, the [&] at the end was the reason the command was run in the background, though some output text appears on the terminal.
   <h2>Saved the Captured Data for Detail Analysis</h2>
