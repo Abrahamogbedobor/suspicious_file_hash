@@ -1,6 +1,6 @@
 # suspicious_file_hash
 <h1>Project Description</h1>
-For this task,c.<br />
+I received an alert based on a supecious file that was downloaded by an employee in my organisation. At the initial stage of my investigation, i discovered the employee received an email that contain an attcached file, which happened to be a password proteced spreadsheet file. The emplooyee used the provided password to gain access to the file after downloading it, as soon as the file was opened, a malicious payload was successful executed on the employee system. I quickly retrieved the malicious file, and create a hash value of the file (SHA256) to uniquely identify it, then i proceeded with my investigation using VirusTotal to further discover and uncover any IOCs that is associated with it. <br />
 
 <h2>Environments and Technologies Used</h2>
 
