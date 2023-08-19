@@ -4,10 +4,8 @@ I received an alert based on a supecious file that was downloaded by an employee
 
 <h2>Environments and Technologies Used</h2>
 
-- (Virtual Machines/Computer)
+- Pyramid of Pain
 - Linux Command-Line
-- Remote Desktop
-- Tcpdump
 
 <h2>Operating Systems Used</h2>
 
@@ -15,10 +13,12 @@ I received an alert based on a supecious file that was downloaded by an employee
 
 <h2>High-Level Steps</h2>
 
-- Identified Network Interfaces
-- Inspect Network Interface Traffic with Tcpdump
-- Capture Network Traffic with Tcpdump
-- Filtered Captured Packet Data
+- Retrieving Hash Value of a File
+- Reviewing Alert Details such as Timeline
+- Entering File Hash into VirusTotal for Evaluation
+- Analyzing VirusTotal Report (Tabs: Detection, Details, Relations, Behaviour)
+- Determine if the File is Malicious by Observing; (High Vendor's Ratio, Negative Community Score, and Detection-tab)
+- Uncovering Additional IOCs that are associated with the File Based on VirusTotal Report
 
 <h2>Task Overview</h2>
 
